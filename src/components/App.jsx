@@ -6,19 +6,21 @@ import { ContactAddForm } from 'components/ContactAddForm/ContactAddForm';
 import { Filter } from 'components/Filter/Filter';
 import { Header, SecondHeader, Section } from './App.styled';
 import { GlobalStyle } from './GlobalStyle';
+import { useContacts } from 'redux/contactsSlice';
+import { useFilter } from 'redux/filterSlice';
 
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
-  const [filter, setFilter] = useState('');
   const [isFirstMount, setIsFirstMount] = useState(true);
+  const { contacts, add, remove } = useContacts();
+  const { filter, change } = useFilter();
 
   useEffect(() => {
     const savedContacts = localStorage.getItem('contacts');
     if (savedContacts) {
       const parsedContacts = JSON.parse(savedContacts);
-      setContacts(parsedContacts);
+      parsedContacts.map(contact => add(contact));
     }
-  }, []);
+  }, [add]);
 
   useEffect(() => {
     if (isFirstMount) {
@@ -29,26 +31,22 @@ export const App = () => {
   }, [contacts, isFirstMount]);
 
   const deleteContact = e => {
-    setContacts(prevState =>
-      prevState.filter(contact => contact.id !== e.target.id)
-    );
+    remove(e.target.id);
   };
 
   const filterChange = e => {
-    setFilter(e.target.value);
+    change(e.target.value);
   };
 
   const contactsChange = (name, number) => {
-    setContacts(prevState => {
-      if (
-        prevState.find(contact =>
-          contact.name.toLowerCase().includes(name.toLowerCase())
-        )
-      ) {
-        return Notify.warning(`${name} is already in contacts`);
-      }
-      return [...prevState, { name: name, number: number, id: nanoid() }];
-    });
+    if (
+      contacts.find(contact =>
+        contact.name.toLowerCase().includes(name.toLowerCase())
+      )
+    ) {
+      return Notify.warning(`${name} is already in contacts`);
+    }
+    return add({ name: name, number: number, id: nanoid() });
   };
 
   return (
