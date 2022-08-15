@@ -1,14 +1,24 @@
 import { useState } from 'react';
 import { Form, Button, Label, Input } from './ContactAddForm.styled';
-import PropTypes from 'prop-types';
+import { useContacts } from 'redux/contactsSlice';
+import { nanoid } from 'nanoid';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-export const ContactAddForm = ({ contactsChange }) => {
+export const ContactAddForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const { contacts, add } = useContacts();
 
   const handleSubmit = e => {
     e.preventDefault();
-    contactsChange(name, number);
+    if (
+      contacts.find(contact =>
+        contact.name.toLowerCase().includes(name.toLowerCase())
+      )
+    ) {
+      return Notify.warning(`${name} is already in contacts`);
+    }
+    add({ name: name, number: number, id: nanoid() });
     setName('');
     setNumber('');
   };
@@ -55,8 +65,4 @@ export const ContactAddForm = ({ contactsChange }) => {
       <Button type="submit">Add contact</Button>
     </Form>
   );
-};
-
-ContactAddForm.propTypes = {
-  contactsChange: PropTypes.func.isRequired,
 };

@@ -28,6 +28,6 @@ export const useContacts = () => {
   return {
     contacts,
     add: handleAddContact,
-    reset: handleRemoveContact,
+    remove: handleRemoveContact,
   };
 };

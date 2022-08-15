@@ -1,15 +1,14 @@
 import React from 'react';
 import { Label, Input } from './Filter.styled';
-import PropTypes from 'prop-types';
+import { useFilter } from 'redux/filterSlice';
 
-export const Filter = ({ filterChange }) => (
-  <Label htmlFor="filter">
-    Find contacts by name
-    <Input type="text" name="filter" onChange={filterChange} />
-  </Label>
-);
-
-Filter.propTypes = {
-  filterChange: PropTypes.func.isRequired,
-  filter: PropTypes.string,
+export const Filter = () => {
+  const { change } = useFilter();
+  const handleChange = e => change(e.target.value);
+  return (
+    <Label htmlFor="filter">
+      Find contacts by name
+      <Input type="text" name="filter" onChange={handleChange} />
+    </Label>
+  );
 };
