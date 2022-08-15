@@ -9,10 +9,7 @@ const contactsSlice = createSlice({
       state.push(action.payload);
     },
     remove(state, action) {
-      return {
-        ...state,
-        items: state.filter(contact => contact.id !== action.payload.id),
-      };
+      return state.filter(contact => contact.id !== action.payload.id);
     },
   },
 });
@@ -31,6 +28,6 @@ export const useContacts = () => {
   return {
     contacts,
     add: handleAddContact,
-    remove: handleRemoveContact,
+    reset: handleRemoveContact,
   };
 };
