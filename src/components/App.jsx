@@ -20,7 +20,7 @@ export const App = () => {
       const parsedContacts = JSON.parse(savedContacts);
       parsedContacts.map(contact => add(contact));
     }
-  }, [add]);
+  }, []);
 
   useEffect(() => {
     if (isFirstMount) {
