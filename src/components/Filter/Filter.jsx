@@ -1,9 +1,9 @@
 import React from 'react';
 import { Label, Input } from './Filter.styled';
-import { useFilter } from 'redux/filterSlice';
+import { useContacts } from 'redux/contactsSlice';
 
 export const Filter = () => {
-  const { change } = useFilter();
+  const { change } = useContacts();
   const handleChange = e => change(e.target.value);
   return (
     <Label htmlFor="filter">

@@ -2,15 +2,14 @@ import React from 'react';
 import { List } from './Contacts.styled';
 import { Contact } from '../Contact/Contact';
 import { useContacts } from 'redux/contactsSlice';
-import { useFilter } from 'redux/filterSlice';
 
 export const Contacts = () => {
-  const { contacts } = useContacts();
-  const { filter } = useFilter();
+  const { contacts, filter } = useContacts();
 
+  console.log(contacts);
   return (
     <>
-      {/* <List>
+      <List>
         {contacts.map(contact => {
           return (
             contact.name.toLowerCase().includes(filter.toLowerCase()) && (
@@ -23,7 +22,7 @@ export const Contacts = () => {
             )
           );
         })}
-      </List> */}
+      </List>
     </>
   );
 };
