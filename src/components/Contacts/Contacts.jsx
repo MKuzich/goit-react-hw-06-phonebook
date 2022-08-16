@@ -6,7 +6,6 @@ import { useContacts } from 'redux/contactsSlice';
 export const Contacts = () => {
   const { contacts, filter } = useContacts();
 
-  console.log(contacts);
   return (
     <>
       <List>
