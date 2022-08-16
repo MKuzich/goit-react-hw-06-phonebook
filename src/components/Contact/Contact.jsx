@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useContacts } from 'redux/contactsSlice';
 
 export const Contact = ({ name, number, id }) => {
-  const { remove, contacts, add } = useContacts();
+  const { remove } = useContacts();
 
   const deleteContact = e => {
     remove(e.target.id);
