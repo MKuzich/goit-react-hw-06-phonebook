@@ -10,7 +10,7 @@ export const Contacts = () => {
 
   return (
     <>
-      <List>
+      {/* <List>
         {contacts.map(contact => {
           return (
             contact.name.toLowerCase().includes(filter.toLowerCase()) && (
@@ -23,7 +23,7 @@ export const Contacts = () => {
             )
           );
         })}
-      </List>
+      </List> */}
     </>
   );
 };
